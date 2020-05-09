@@ -135,7 +135,7 @@ public class ModeloTestEJB {
 	}
 	
 	/**
-	 * Metodo de prueba para Agregar usuario
+	 * Metodo de prueba para las entradas 
 	 * @throws ObjetoNoExisteException 
 	 */
 	@Test
@@ -169,6 +169,6 @@ public class ModeloTestEJB {
 		}
 
 	}
-	
+
 
 }

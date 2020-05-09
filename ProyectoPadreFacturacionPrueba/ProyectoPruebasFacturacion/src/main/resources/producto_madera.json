@@ -1,0 +1,15 @@
+{
+	"producto_madera": [
+		{
+			"id_producto": 1,
+			"alto": 2.0,
+			"ancho": 24.0,
+			"largo": 300.0,
+			"nombre": "tabla",
+			"precio": 8500.0,
+			"pulgadas": 10.0,
+			"tipo_madera": 1
+						
+		}
+	]
+}
