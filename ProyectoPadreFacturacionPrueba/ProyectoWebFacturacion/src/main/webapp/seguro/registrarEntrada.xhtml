@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<ui:define name="contenido">
+
+		<h:form>
+			<br />
+			<br />
+
+			<p:panelGrid columns="2">
+
+				<f:facet name="header">Entrada</f:facet>
+
+				<p:outputLabel value="Numero Salvoconduco:" />
+				<p:inputText value="#{entradaBean.salvoconducto}" required="true"
+					requiredMessage="El Salvoconducto no puede estar vacio" />
+
+				<h:outputText value="Nombre cientifico:  " />
+				<p:inputText value="#{entradaBean.nombre_cientifico}"
+					required="true" requiredMessage="El nombre no puede esta vacio">
+				</p:inputText>
+
+				<h:outputText value="Tipo Madera:  " />
+				<p:selectOneMenu style="width:206px"
+					value="#{entradaBean.tipo_madera}"
+					converter="#{tipoMaderaConverter}" effect="fade" filter="true"
+					filterMatchMode="startsWith" required="true"
+					requiredMessage="Tiene que escoger una ">
+					<f:selectItem itemLabel="Seleccione una" noSelectionOption="true" />
+					<f:selectItems value="#{entradaBean.tipos}" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Corporacion que emite:  " />
+				<p:inputText value="#{entradaBean.corporacion}" required="true"
+					requiredMessage="La corporacion no puede esta vacio">
+				</p:inputText>
+
+
+				<h:outputLabel value="Fecha:" />
+				<p:calendar value="#{entradaBean.fecha}" showOn="button"
+					required="true" />
+
+				<h:outputText value="Procedencia:  " />
+				<p:inputText value="#{entradaBean.procedencia}" required="true"
+					requiredMessage="la procedencia no puede esta vacio">
+				</p:inputText>
+
+		
+				<h:outputLabel value="Cantidad de pulgadas:" />
+				<p:inputNumber value="#{entradaBean.cantidad_pulgadas}" required="true"
+					requiredMessage="las pulgas no puede estar vacio" symbol=" p3" symbolPosition="s" thousandSeparator="."
+					decimalSeparator="," />
+				
+				<h:outputText value="Proveedor:  " />
+				<p:selectOneMenu style="width:206px"
+					value="#{entradaBean.proveedor}"
+					converter="#{proveedorConverter}" effect="fade" filter="true"
+					filterMatchMode="startsWith" required="true"
+					requiredMessage="Tiene que escoger uno ">
+					<f:selectItem itemLabel="Seleccione uno" noSelectionOption="true" />
+					<f:selectItems value="#{entradaBean.proveedores}" />
+				</p:selectOneMenu>
+				
+
+			</p:panelGrid>
+			<br />
+			<p:commandButton action="#{entradaBean.agregarEntrada}"
+				value="Aceptar" ajax="false" />
+
+		</h:form>
+
+		<p:growl />
+	</ui:define>
+
+</ui:composition>
+</html>

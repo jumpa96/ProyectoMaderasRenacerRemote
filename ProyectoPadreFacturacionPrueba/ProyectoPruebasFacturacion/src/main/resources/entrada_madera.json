@@ -1,0 +1,15 @@
+{
+	"Entrada_Madera": [
+		{
+			"salvoconducto": 1,
+			"cantidad_pulgadas": 10.0,
+			"corporacion": "CRQ",
+			"fecha": "2021-04-04",
+			"nombre_cientifico": "tales",
+			"procedencia": "armenai",
+			"proveedor": "vendedor2",
+			"tipo_madera": 1
+						
+		}
+	]
+}

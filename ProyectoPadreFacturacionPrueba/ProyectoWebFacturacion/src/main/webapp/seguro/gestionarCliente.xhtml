@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<style type="text/css">
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+	<ui:define name="contenido">
+		<br />
+		<h:form id="clienteForm">
+
+			<p:fieldset id="Clientes" legend="Clientes Registrados">
+
+				<p:dataTable var="cliente" value="#{clienteBean.clientes}"
+					widgetVar="clientesTable"
+					emptyMessage="No hay clientes que coincidan con los criterios"
+					filteredValue="#{clienteBean.clientesFilter}">
+
+					<f:facet name="header">
+
+					</f:facet>
+
+					<p:column filterBy="#{cliente.nombre}"
+						headerText="Nombre o razon social:" filterMatchMode="contains">
+						<h:outputText value="#{cliente.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{cliente.apellido}" headerText="Apellido"
+						filterMatchMode="contains">
+						<h:outputText value="#{cliente.apellido}" />
+					</p:column>
+
+					<p:column filterBy="#{cliente.telefono}" headerText="Telefono"
+						filterMatchMode="contains">
+						<h:outputText value="#{cliente.telefono}" />
+					</p:column>
+
+					<p:column filterBy="#{cliente.correo}" headerText="Correo"
+						filterMatchMode="contains">
+						<h:outputText value="#{cliente.correo}" />
+					</p:column>
+
+					<p:column filterBy="#{cliente.direccion}" headerText="Direccion"
+						filterMatchMode="contains">
+						<h:outputText value="#{cliente.direccion}" />
+					</p:column>
+
+					<p:column filterBy="#{cliente.cedula}" headerText="Cedula o Nit"
+						filterMatchMode="contains">
+						<h:outputText value="#{cliente.cedula}" />
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:commandButton update=":clienteForm:display"
+							oncomplete="PF('clienteDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{cliente}"
+								target="#{clienteBean.cliente}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<p:dialog header="Modificar Cliente" widgetVar="clienteDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty clienteBean.cliente}">
+
+						<h:outputText value="Nombre o razon social:" />
+						<h:inputText value="#{clienteBean.cliente.nombre}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Apellido: " />
+						<h:inputText value="#{clienteBean.cliente.apellido}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Telefono: " />
+						<h:inputText value="#{clienteBean.cliente.telefono}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Direccion: " />
+						<h:inputText value="#{clienteBean.cliente.direccion}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Correo: " />
+						<h:inputText value="#{clienteBean.cliente.correo}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Cedula o nit: " />
+						<h:outputText  value="#{clienteBean.cliente.cedula}"
+							style="font-weight:bold" />
+
+
+						<f:facet name="footer">
+							<p:commandButton value="Actualizar" ajax="false" action="#{clienteBean.actualizarCliente}" />
+						</f:facet>
+
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>
+

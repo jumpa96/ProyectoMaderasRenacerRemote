@@ -1,0 +1,71 @@
+{
+	"Persona": [
+		{
+			"cedula": "admin1",
+			"DTYPE": "Usuario",
+			"apellido": "gordo",
+			"correo": "crus@sdfsjfd.com",
+			"direccion": "calle 1",
+			"nombre": "pedro",			
+			"telefono":	"318844449"			
+		},
+		{
+			"cedula": "admin2",
+			"DTYPE": "Cliente",
+			"apellido": "perez",
+			"correo": "crus@sdfd.com",
+			"direccion": "calle 2",
+			"nombre": "andrea",			
+			"telefono": "318844849"
+		},
+		{
+			"cedula": "vendedor1",
+			"DTYPE": "Usuario",
+			"apellido": "buritica",
+			"correo": "nome@hotmail",
+			"direccion": "calle otra",
+			"nombre": "efra",			
+			"telefono": "341883849"
+		
+		
+		},
+		{
+			"cedula": "vendedor2",
+			"DTYPE": "Proveedor",
+			"apellido": "gonzales",
+			"correo": "gonza@hotmail.com",
+			"direccion": "crr14 cr",
+			"nombre": "maria",			
+			"telefono": "3188339"
+		
+		}
+		
+	
+],
+	
+	"USUARIO": [
+		{
+			"cedula": "admin1",
+		 	"clave":1234,
+		 	"salario_base":200000
+		},
+		{
+			"cedula": "vendedor1",
+			"clave":1234,
+			"salario_base":200000
+		}
+	],
+	
+	"PROVEEDOR": [
+		{
+			"cedula": "vendedor2"
+		}
+	],
+	"CLIENTE": [
+		{
+			"cedula": "admin2"
+		}
+	]
+		
+		
+}

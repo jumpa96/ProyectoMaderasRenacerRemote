@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<style type="text/css">
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+	<ui:define name="contenido">
+		<br />
+		<h:form id="productoForm">
+
+			<p:fieldset id="Productos" legend="Lista de precios">
+
+				<p:dataTable var="producto" value="#{productoMaderaBean.productos}"
+					widgetVar="productosTable"
+					emptyMessage="No hay productos que coincidan con los criterios"
+					filteredValue="#{productoMaderaBean.productosFilter}">
+
+					<f:facet name="header">
+						Lista de precios
+					</f:facet>
+
+					<p:column filterBy="#{producto.nombre}" headerText="Nombre"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.ancho}" headerText="Ancho (cm)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.ancho}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.alto}" headerText="Grueso (cm)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.alto}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.largo}" headerText="Largo (m)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.largo}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.precio}" headerText="Precio ($)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.precio}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.tipo_madera}"
+						headerText="Tipo de madera" filterMatchMode="contains">
+						<h:outputText value="#{producto.tipo_madera.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.id_producto }"
+						headerText="Pulgadas (P3)" filterMatchMode="contains">
+						<h:outputText value="#{producto.pulgadas}" />
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:commandButton update=":productoForm:display"
+							oncomplete="PF('productoDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{producto}"
+								target="#{productoMaderaBean.producto}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<p:dialog header="Cambiar Precio" widgetVar="productoDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty productoMaderaBean.producto}">
+
+						<h:outputText value="Nombre:" />
+						<h:inputText value="#{productoMaderaBean.producto.nombre}"
+							style="font-weight:bold"/>
+						
+						<h:outputText value="Id:" />
+						<h:outputText value="#{productoMaderaBean.producto.id_producto}"
+							style="font-weight:bold"/>
+							
+						<h:outputText value="Precio Actual:" />
+						<h:outputText value="#{productoMaderaBean.producto.precio}"
+							style="font-weight:bold"/>
+							
+						<h:outputText value="Precio nuevo:" />
+						<p:inputNumber  value="#{productoMaderaBean.precioaux}" symbol="$ "
+					symbolPosition="p" thousandSeparator="." decimalSeparator="," />
+						
+						
+						
+						<f:facet name="footer">
+							<p:commandButton value="Actualizar" ajax="false"
+								action="#{productoMaderaBean.actualizarProducto}" />
+							<p:commandButton value="Eliminar" ajax="false"
+								action="#{productoMaderaBean.eliminarProducto}" />
+						</f:facet>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>

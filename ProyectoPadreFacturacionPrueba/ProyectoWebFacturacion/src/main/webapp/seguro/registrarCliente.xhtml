@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<ui:define name="contenido">
+
+		<h:form>
+			<br/>
+			<br/>
+			
+			<p:panelGrid columns="2">
+
+				<f:facet name="header">Registrar Cliente</f:facet>
+
+				<p:outputLabel value="Cedula o nit:" />
+				<p:inputText value="#{clienteBean.cedula}" required="true"
+					requiredMessage="la cedula debe tener mas de dos caracteres">
+					<f:validateLength minimum="2" maximum="20" />
+				</p:inputText>
+
+				<p:outputLabel value="Nombre o razon social:" />
+				<p:inputText value="#{clienteBean.nombre}" required="true"
+				requiredMessage="El nombre no puede estar vacio" />
+
+				<p:outputLabel value="Apellido:" />
+				<p:inputText value="#{clienteBean.apellido}"/>
+
+				<p:outputLabel value="Email:" />
+				<p:inputText value="#{clienteBean.correo}" />
+
+				
+				<p:outputLabel value="Direccion:" />
+				<p:inputText value="#{clienteBean.direccion}" />
+
+				<p:outputLabel value="Telefono:" />
+				<p:inputText value="#{clienteBean.telefono}" required="true" 
+				requiredMessage="El telefono no puede estar vacio" />
+				
+			</p:panelGrid>
+			<br/>
+			<p:commandButton action="#{clienteBean.agregarCliente}"
+				value="Aceptar" ajax="false" />
+
+		</h:form>
+		
+	<p:growl/>
+	</ui:define>
+	   
+</ui:composition>
+</html>

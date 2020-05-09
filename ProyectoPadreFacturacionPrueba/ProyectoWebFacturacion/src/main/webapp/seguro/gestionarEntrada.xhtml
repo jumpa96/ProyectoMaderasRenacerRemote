@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<style type="text/css">
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+	<ui:define name="contenido">
+		<br />
+		<h:form id="entradaForm">
+
+			<p:fieldset id="Clientes" legend="Clientes Registrados">
+
+				<p:dataTable var="entrada" value="#{entradaBean.entradas}"
+					widgetVar="entradaTable"
+					emptyMessage="No hay entradas que coincidan con los criterios"
+					filteredValue="#{entradaBean.entradasFilter}">
+
+					<f:facet name="header">
+							Historico de entradas
+					</f:facet>
+
+					<p:column filterBy="#{entrada.salvoconducto}"
+						headerText="Salvoconducto:" filterMatchMode="contains">
+						<h:outputText value="#{entrada.salvoconducto}" />
+					</p:column>
+
+					<p:column filterBy="#{entrada.cantidad_pulgadas}" headerText="Pulgadas: "
+						filterMatchMode="contains">
+						<h:outputText value="#{entrada.cantidad_pulgadas}" />
+					</p:column>
+
+					<p:column filterBy="#{entrada.corporacion}" headerText="Corporacion: "
+						filterMatchMode="contains">
+						<h:outputText value="#{entrada.corporacion}" />
+					</p:column>
+
+					<p:column filterBy="#{entrada.fecha}" headerText="Fecha"
+						filterMatchMode="contains">
+						<h:outputText value="#{entrada.fecha}" >
+							<f:convertDateTime pattern="MM/dd/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column filterBy="#{entrada.tipo_madera.nombre}" headerText="Tipo de madera"
+						filterMatchMode="contains">
+						<h:outputText value="#{entrada.tipo_madera.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{entrada.nombre_cientifico}" headerText="Nombre cientifico"
+						filterMatchMode="contains">
+						<h:outputText value="#{entrada.nombre_cientifico}" />
+					</p:column>
+					
+					<p:column filterBy="#{entrada.procedencia}" headerText="Procedencia"
+						filterMatchMode="contains">
+						<h:outputText value="#{entrada.procedencia}" />
+					</p:column>
+					
+					<p:column filterBy="#{entrada.proveedor.nombre}" headerText="Proveedor"
+						filterMatchMode="contains">
+						<h:outputText value="#{entrada.proveedor.nombre}" />
+					</p:column>
+					
+
+					<p:column style="width:32px">
+						<p:commandButton update=":entradaForm:display"
+							oncomplete="PF('entradaDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{entrada}"
+								target="#{entradaBean.entrada}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<p:dialog header="Eliminar Entrada" widgetVar="entradaDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty entradaBean.entrada}">
+
+						<h:outputText value="Salvoconducto: " />
+						<h:outputText value="#{entradaBean.entrada.salvoconducto}"
+							style="font-weight:bold" />
+
+						<f:facet name="footer">
+							<p:commandButton value="Eliminar" ajax="false" action="#{entradaBean.eliminarEntrada}" />
+						</f:facet>
+
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>

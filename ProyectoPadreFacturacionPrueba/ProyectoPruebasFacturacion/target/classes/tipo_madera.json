@@ -1,0 +1,9 @@
+{
+	"Tipo_Madera": [
+		{
+			"id_madera": 1,
+			"cantidad_pulgadas": 0.0,
+			"nombre": "gordo"			
+		}
+	]
+}

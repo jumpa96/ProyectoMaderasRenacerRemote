@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Built-By: jpgb9
+Class-Path: ProyectoPersistenciaFacturacion-0.0.1-SNAPSHOT.jar Proyect
+ oNegocioFacturacion-0.0.1-SNAPSHOT.jar
+Build-Jdk: 1.8.0_241
+Created-By: Maven Integration for Eclipse
+

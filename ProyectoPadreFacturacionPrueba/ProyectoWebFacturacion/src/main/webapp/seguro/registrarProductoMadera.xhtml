@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<ui:define name="contenido">
+
+		<h:form>
+			<br />
+			<br />
+
+			<p:panelGrid columns="2">
+
+				<f:facet name="header">Producto</f:facet>
+
+				<p:outputLabel value="Nombre:" />
+				<p:inputText value="#{productoMaderaBean.nombre}" required="true"
+					requiredMessage="El nombre no puede esta vacio">
+				</p:inputText>
+
+				<h:outputText value="Tipo Madera:  " />
+				<p:selectOneMenu style="width:206px"
+					value="#{productoMaderaBean.tipo}"
+					converter="#{tipoMaderaConverter}" effect="fade" filter="true"
+					filterMatchMode="startsWith" required="true"
+					requiredMessage="Tiene que escoger una ">
+					<f:selectItem
+						itemLabel="Seleccione una"
+						noSelectionOption="true" />
+					<f:selectItems value="#{productoMaderaBean.tipos}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Ancho:" />
+				<p:inputNumber value="#{productoMaderaBean.ancho}" required="true"
+					requiredMessage="El ancho no puede estar vacio" symbol=" cm"
+					symbolPosition="s" thousandSeparator="." decimalSeparator="," />
+
+				<p:outputLabel value="Grueso:" />
+				<p:inputNumber value="#{productoMaderaBean.alto}" required="true"
+					requiredMessage="El grueso no puede estar vacio" symbol=" cm"
+					symbolPosition="s" thousandSeparator="." decimalSeparator="," />
+
+
+				<p:outputLabel value="Largo:" />
+				<p:inputNumber value="#{productoMaderaBean.largo}" required="true"
+					requiredMessage="El largo no puede estar vacio" symbol=" m"
+					symbolPosition="s" thousandSeparator="." decimalSeparator="," />
+
+				<p:outputLabel value="Pulgadas: " />
+				<p:inputNumber value="#{productoMaderaBean.pulgadas}"
+					required="true" requiredMessage="las pulgadas no puede estar vacio"
+					symbol=" p3" symbolPosition="s" thousandSeparator="."
+					decimalSeparator="," />
+
+				<p:outputLabel value="Precio:" />
+				<p:inputNumber value="#{productoMaderaBean.precio}" required="true"
+					requiredMessage="El precio no puede estar vacio" symbol="$ "
+					symbolPosition="p" thousandSeparator="." decimalSeparator="," />
+
+			</p:panelGrid>
+			<br />
+			<p:commandButton action="#{productoMaderaBean.agregarProducto}"
+				value="Aceptar" ajax="false" />
+
+		</h:form>
+
+		<p:growl />
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title><ui:insert name="title">MADERAS RENACER</ui:insert></title>
+</h:head>
+<h:body>
+	<div align="center">
+		<div name="portada">
+			<p:graphicImage value="#{resource['maderasrenacer.jpeg']}" stream="false" />
+		</div>
+		<h:panelGroup rendered="#{!seguridadBean.autenticado}">
+			<ui:insert name="login">
+				<h:form>
+					<p:panelGrid columns="2">
+						<f:facet name="header">Iniciar sesion</f:facet>
+						<p:outputLabel value="Correo: " />
+						<p:inputText value="#{seguridadBean.usuario.correo}" required="true"
+							requiredMessage="El correo no puede estar vacio" />
+						<p:outputLabel value="Clave" />
+						<p:password value="#{seguridadBean.clave}" />
+
+						<f:facet name="footer">
+							<p:commandButton value="Aceptar"
+								action="#{seguridadBean.iniciarSesion}" ajax="false" />
+						</f:facet>
+
+					</p:panelGrid>
+
+					<p:commandLink value="Recuperar Contraseña"
+						action="#{seguridadBean.recuperar}" ajax="false" />
+
+				</h:form>
+				<p:growl id="growl" life="2000" />
+			</ui:insert>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{seguridadBean.autenticado}">
+			<ui:insert name="menu">
+				<h:form>
+					<p:menubar>
+						<f:facet name="options">
+							<p:commandButton value="Inicio" action="/index" ajax="false" />
+						</f:facet>
+						<p:submenu label="Clientes">
+							<p:menuitem value="Directorio de clientes" ajax="false"
+								action="/seguro/gestionarCliente" />
+							<p:menuitem value="Agregar Cliente" ajax="false"
+								action="/seguro/registrarCliente" />
+						</p:submenu>
+						<p:submenu label="Productos">
+							<p:menuitem value="Lista de Productos" ajax="false"
+								action="/seguro/gestionarProductoMadera" />
+							<p:menuitem value="Agregar un producto" ajax="false"
+								action="/seguro/registrarProductoMadera" />
+						</p:submenu>
+						<p:submenu label="Tipos de Madera">
+							<p:menuitem value="Tipos de Madera" ajax="false"
+								action="/seguro/gestionarTipoMadera" />
+							<p:menuitem value="Agregar Tipo Madera" ajax="false"
+								action="/seguro/registrarTipoMadera" />
+						</p:submenu>
+						<p:submenu label="Proveedores">
+							<p:menuitem value="Directorio de proveedores" ajax="false"
+								action="/seguro/gestionarProveedor" />
+							<p:menuitem value="Agregar Proveedor" ajax="false"
+								action="/seguro/registrarProveedor" />
+						</p:submenu>
+						<p:submenu label="Entradas">
+							<p:menuitem value="Registrar Entrada" ajax="false"
+								action="/seguro/registrarEntrada" />
+								<p:menuitem value="Ver Entradas" ajax="false"
+								action="/seguro/gestionarEntrada" />
+							
+						</p:submenu>
+						
+						<p:menuitem value="Cerrar sesión" ajax="false"
+							action="#{seguridadBean.cerrarSesion}" />
+							
+					</p:menubar>
+				</h:form>
+			</ui:insert>
+			<ui:insert name="contenido" />
+		</h:panelGroup>
+
+	</div>
+</h:body>
+</html>

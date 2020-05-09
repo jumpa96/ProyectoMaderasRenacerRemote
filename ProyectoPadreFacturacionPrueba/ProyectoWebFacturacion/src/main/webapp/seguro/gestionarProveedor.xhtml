@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<style type="text/css">
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+	<ui:define name="contenido">
+		<br />
+		<h:form id="proveedorForm">
+
+			<p:fieldset id="Proveedores" legend="Proveedores Registrados">
+
+				<p:dataTable var="proveedor" value="#{proveedorBean.proveedores}"
+					widgetVar="proveedoresTable"
+					emptyMessage="No hay proveedores que coincidan con los criterios"
+					filteredValue="#{proveedorBean.proveedorFilter}">
+
+					<f:facet name="header">
+
+					</f:facet>
+
+					<p:column filterBy="#{proveedor.nombre}"
+						headerText="Nombre o razon social:" footerText="contains"
+						filterMatchMode="contains">
+						<h:outputText value="#{proveedor.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{proveedor.apellido}" headerText="Apellido"
+						filterMatchMode="contains">
+						<h:outputText value="#{proveedor.apellido}" />
+					</p:column>
+
+					<p:column filterBy="#{proveedor.telefono}" headerText="Telefono"
+						filterMatchMode="contains">
+						<h:outputText value="#{proveedor.telefono}" />
+					</p:column>
+
+					<p:column filterBy="#{proveedor.correo}" headerText="Correo"
+						filterMatchMode="contains">
+						<h:outputText value="#{proveedor.correo}" />
+					</p:column>
+
+					<p:column filterBy="#{proveedor.direccion}" headerText="Direccion"
+						filterMatchMode="contains">
+						<h:outputText value="#{proveedor.direccion}" />
+					</p:column>
+
+					<p:column filterBy="#{proveedor.cedula}" headerText="Cedula o Nit"
+						filterMatchMode="contains">
+						<h:outputText value="#{proveedor.cedula}" />
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:commandButton update=":proveedorForm:display"
+							oncomplete="PF('proveedorDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{proveedor}"
+								target="#{proveedorBean.proveedor}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<p:dialog header="Modificar Proveedor" widgetVar="proveedorDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty proveedorBean.proveedor}">
+
+						<h:outputText value="Nombre o razon social:" />
+						<h:inputText value="#{proveedorBean.proveedor.nombre}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Apellido: " />
+						<h:inputText value="#{proveedorBean.proveedor.apellido}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Telefono: " />
+						<h:inputText value="#{proveedorBean.proveedor.telefono}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Direccion: " />
+						<h:inputText value="#{proveedorBean.proveedor.direccion}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Correo: " />
+						<h:inputText value="#{proveedorBean.proveedor.correo}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Cedula o nit: " />
+						<h:outputText  value="#{proveedorBean.proveedor.cedula}"
+							style="font-weight:bold" />
+
+
+						<f:facet name="footer">
+							<p:commandButton value="Actualizar" ajax="false" action="#{proveedorBean.actualizarProveedor}" />
+						</f:facet>
+
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>

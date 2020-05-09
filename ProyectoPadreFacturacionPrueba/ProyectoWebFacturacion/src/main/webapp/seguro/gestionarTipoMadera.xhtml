@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+	<style type="text/css">
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+	<ui:define name="contenido">
+		<br />
+		<h:form id="tipoMaderaForm">
+
+			<p:fieldset id="tipoMaderas" legend="Tipos de madera registrados">
+
+				<p:dataTable var="tipo" value="#{tipoMaderaBean.tipos}"
+					widgetVar="tiposTable"
+					emptyMessage="No hay tipos de madera que coincidan con los criterios"
+					filteredValue="#{tipoMaderaBean.tiposFilter}">
+
+					<f:facet name="header">
+
+					</f:facet>
+
+					<p:column filterBy="#{tipo.nombre}"
+						headerText="Nombre " filterMatchMode="contains">
+						<h:outputText value="#{tipo.nombre}" />
+					</p:column>
+
+					<p:column  headerText="Cantidad de Pulgadas">
+						<h:outputText value="#{tipo.cantidad_pulgadas}" />
+					</p:column>
+
+					<p:column filterBy="#{tipo.id_madera}" headerText="Id"
+						filterMatchMode="contains">
+						<h:outputText value="#{tipo.id_madera}" />
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:commandButton update=":tipoMaderaForm:display"
+							oncomplete="PF('tipoMaderaDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{tipo}"
+								target="#{tipoMaderaBean.tipo}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<p:dialog header="Modificar Tipo Madera" widgetVar="tipoMaderaDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty tipoMaderaBean.tipo}">
+
+						<h:outputText value="Nombre " />
+						<h:inputText value="#{tipoMaderaBean.tipo.nombre}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Cantidad de Pulgadas: " />
+						<h:outputText value="#{tipoMaderaBean.tipo.cantidad_pulgadas}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Id: " />
+						<h:outputText value="#{tipoMaderaBean.tipo.id_madera}"
+							style="font-weight:bold" />
+
+
+						<f:facet name="footer">
+							<p:commandButton value="Actualizar" ajax="false"
+								action="#{tipoMaderaBean.actualizarTipoMadera}" />
+						</f:facet>
+
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>
