@@ -763,6 +763,11 @@ public class NegocioEJB implements NegocioEJBRemote {
 		
 	}
 
+	/**
+	 * metodo para buscar proovedor
+	 * @param value
+	 * @return
+	 */
 	public Proveedor buscarProveedor(String value) {
 		
 		Proveedor proveedor = entityManager.find(Proveedor.class, value);
@@ -770,6 +775,48 @@ public class NegocioEJB implements NegocioEJBRemote {
 		return proveedor;
 		
 	}
+	
+	/**
+	 * calcula las ventas por usuario
+	 * @param cedula
+	 * @return
+	 */
+	public Double calcularVentasUsuario(String cedula) {
+		
+		TypedQuery<Double> query = entityManager.createNamedQuery(Usuario.VENTAS_USUARIO,Double.class);
+		query.setParameter("cedula", cedula);
 
+		return query.getSingleResult();
+		
+	}
+
+	/**
+	 * calcula el valor total de la factura
+	 * @param cedula
+	 * @return
+	 */
+	public Double calcularValorFactura(int idFactura) {
+		
+		TypedQuery<Double> query = entityManager.createNamedQuery(Factura.VALOR_FACTURA,Double.class);
+		query.setParameter("idFactura", idFactura);
+
+		return query.getSingleResult();
+		
+	}
+	
+	/**
+	 * calcula el valor total ventas
+	 * @param cedula
+	 * @return
+	 */
+	public Double calcularTotalVentas() {
+		
+		TypedQuery<Double> query = entityManager.createNamedQuery(Usuario.TOTAL_VENTAS,Double.class);
+
+		return query.getSingleResult();
+		
+	}
+	
+	
 
 }

@@ -13,7 +13,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = Factura.LISTAR_FACTURAS_CLIENTE, query = "select f from Factura f where f.cliente.cedula=:cedula"),
-	@NamedQuery(name= Factura.LISTAR_FACTURAS, query="select f from Factura f")
+	@NamedQuery(name= Factura.LISTAR_FACTURAS, query="select f from Factura f"),
+	@NamedQuery(name= Factura.VALOR_FACTURA, query="select sum(pf.valor_neto) from Producto_Factura pf where pf.factura.id_factura=:idFactura")
 })
 public class Factura implements Serializable {
 
@@ -22,6 +23,11 @@ public class Factura implements Serializable {
 	 * lista todas las facturas
 	 */
 	public static final String LISTAR_FACTURAS="lista todas las facturas";
+	
+	/**
+	 * Calcula el valor total de la factura
+	 */
+	public static final String VALOR_FACTURA="Calcula el valor total de la factura";
 	
 	/**
 	 * lista todas las facturas por cliente

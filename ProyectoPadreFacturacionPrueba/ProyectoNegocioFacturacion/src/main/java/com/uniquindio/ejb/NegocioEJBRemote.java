@@ -275,6 +275,13 @@ public interface NegocioEJBRemote {
 	public Usuario buscarUsuarioEmail(String email) throws	ObjetoNoExisteException;
 	
 	/**
+	 * calcula el valor total de la factura
+	 * @param cedula
+	 * @return
+	 */
+	public Double calcularValorFactura(int idFactura);
+	
+	/**
 	 * lista todos los productos de un tipo de madera
 	 * @param idFactura
 	 * @return
@@ -287,6 +294,26 @@ public interface NegocioEJBRemote {
 	 */
 	public void actualizarPulgadas(Tipo_Madera tipo_madera);
 	
+	/**
+	 * busca tipo de madera por id
+	 * @param id
+	 * @return
+	 * @throws ObjetoNoExisteException
+	 */
 	public Tipo_Madera buscarTipoMadera(int id) throws	ObjetoNoExisteException;
+	
+	/**
+	 * calcula las ventas por usuario
+	 * @param cedula
+	 * @return
+	 */
+	public Double calcularVentasUsuario(String cedula);
+	
+	/**
+	 * calcula el valor total ventas
+	 * @param cedula
+	 * @return
+	 */
+	public Double calcularTotalVentas();
 	
 }

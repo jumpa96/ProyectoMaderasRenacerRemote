@@ -1,0 +1,18 @@
+{
+	"Producto_Factura": [
+		{
+			"id_producto_factura": 1,
+			"cantidad":2,
+			"valor_neto":17000,
+			"factura":1,
+			"producto": 1
+		},
+		{
+			"id_producto_factura": 2,
+			"cantidad":2,
+			"valor_neto":17000,
+			"factura":1,
+			"producto": 1
+		}
+	]
+}

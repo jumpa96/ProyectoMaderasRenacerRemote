@@ -1,0 +1,13 @@
+{
+	"Factura": [
+		{
+			"id_factura": 1,
+			"estado": true,
+			"fecha": "2021-04-04",
+			"valor_total": 1200000,
+			"cliente": "admin2",
+			"vendedor": "admin1"
+						
+		}
+	]
+}

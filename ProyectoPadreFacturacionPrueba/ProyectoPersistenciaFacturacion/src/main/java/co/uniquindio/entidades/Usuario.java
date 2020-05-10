@@ -13,9 +13,21 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = Usuario.LISTAR_USUARIOS, query = "select u from Usuario u"),
 	@NamedQuery(name = Usuario.INICIAR_SESION, query = "select u from Usuario u where u.clave=:clave and u.correo=:email"),
-	@NamedQuery(name = Usuario.BUSCAR_USUARIO_POR_EMAIL, query = "select v from Usuario v where v.correo=:email")
+	@NamedQuery(name = Usuario.BUSCAR_USUARIO_POR_EMAIL, query = "select v from Usuario v where v.correo=:email"),
+	@NamedQuery(name = Usuario.VENTAS_USUARIO, query = "select sum(f.valor_total) from Factura f where f.vendedor.cedula=:cedula"),
+	@NamedQuery(name = Usuario.TOTAL_VENTAS, query = "select sum(f.valor_total) from Factura f")
 })
 public class Usuario extends Persona implements Serializable {
+	
+	/**
+	 * Calcula el total de ventas
+	 */
+	public static final String TOTAL_VENTAS="Calcula el total de ventas";
+	
+	/**
+	 * Calcula el total de ventas por vendedor
+	 */
+	public static final String VENTAS_USUARIO="Calcula el total de ventas por vendedor";
 	
 	/**
 	 * iniciar session
