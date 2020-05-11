@@ -11,10 +11,16 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Cliente.LISTAR_CLIENTES, query = "select c from Cliente c")
+	@NamedQuery(name = Cliente.LISTAR_CLIENTES, query = "select c from Cliente c"),
+	@NamedQuery(name = Cliente.BUSCAR_CLIENTE, query = "select c from Cliente c where c.cedula=:cedula")
 })
 public class Cliente extends Persona implements Serializable {
 
+	
+	/**
+	 * lista todos los clientes
+	 */
+	public static final String BUSCAR_CLIENTE="Busca un cliente";
 	
 	/**
 	 * lista todos los clientes

@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+
+	<style type="text/css">
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+
+	<ui:define name="contenido">
+
+		<h:form>
+			<br />
+			<br />
+
+			<p:panelGrid columns="3" rendered="#{!facturaBean.autenticado}">
+
+				<f:facet name="header">Facturacion</f:facet>
+				<p:outputLabel value="Cedula o nit:" />
+				<p:inputText value="#{facturaBean.cedula}" required="true"
+					requiredMessage="la cedula debe tener mas de dos caracteres">
+					<f:validateLength minimum="2" maximum="20" />
+				</p:inputText>
+				<p:commandButton action="#{facturaBean.agregarFactura}"
+					value="Buscar" ajax="false" />
+
+
+				<p:outputLabel value="Nombre o razon social:" />
+				<p:outputLabel value="#{facturaBean.nombre}" />
+				<p:outputLabel />
+
+				<p:outputLabel value="Apellido:" />
+				<p:outputLabel value="#{facturaBean.apellido}" />
+				<p:outputLabel />
+
+				<p:outputLabel value="Email:" />
+				<p:outputLabel value="#{facturaBean.correo}" />
+				<p:outputLabel />
+
+
+				<p:outputLabel value="Direccion:" />
+				<p:outputLabel value="#{facturaBean.direccion}" />
+				<p:outputLabel />
+
+				<p:outputLabel value="Telefono:" />
+				<p:outputLabel value="#{facturaBean.telefono}" />
+				<p:outputLabel />
+
+			</p:panelGrid>
+
+
+
+			<p:panelGrid columns="2" rendered="#{facturaBean.autenticado}">
+
+				<f:facet name="header">Registrar Cliente</f:facet>
+
+				<p:outputLabel value="Cedula o nit:" />
+				<p:inputText value="#{facturaBean.cedula}" required="true"
+					requiredMessage="la cedula debe tener mas de dos caracteres">
+					<f:validateLength minimum="2" maximum="20" />
+				</p:inputText>
+
+				<p:outputLabel value="Nombre o razon social:" />
+				<p:inputText value="#{facturaBean.nombre}" required="true"
+					requiredMessage="El nombre no puede estar vacio" />
+
+				<p:outputLabel value="Apellido:" />
+				<p:inputText value="#{facturaBean.apellido}" />
+
+				<p:outputLabel value="Email:" />
+				<p:inputText value="#{facturaBean.correo}" />
+
+
+				<p:outputLabel value="Direccion:" />
+				<p:inputText value="#{facturaBean.direccion}" />
+
+				<p:outputLabel value="Telefono:" />
+				<p:inputText value="#{facturaBean.telefono}" required="true"
+					requiredMessage="El telefono no puede estar vacio" />
+
+			</p:panelGrid>
+
+			<br />
+			<p:commandButton action="#{facturaBean.agregarCliente}"
+				value="Agregar Cliente" ajax="false"
+				rendered="#{facturaBean.autenticado}" />
+
+		</h:form>
+
+
+		<br />
+
+
+
+		<h:form id="productoFacturaForm" rendered="#{facturaBean.fac}">
+
+			<p:fieldset id="ProductosF" legend="Productos Facturados">
+
+				<p:dataTable var="productoF"
+					value="#{facturaBean.productosFacturados}"
+					widgetVar="productosTable"
+					emptyMessage="No hay productos que coincidan con los criterios"
+					filteredValue="#{facturaBean.productosFacturadosFilter}">
+
+					<f:facet name="header">
+						Productos Facturados
+					</f:facet>
+
+					<p:column filterBy="#{productoF.producto.nombre}"
+						headerText="Nombre" filterMatchMode="contains">
+						<h:outputText value="#{productoF.producto.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{productoF.producto.ancho}"
+						headerText="Ancho (cm)" filterMatchMode="contains">
+						<h:outputText value="#{productoF.producto.ancho}" />
+					</p:column>
+
+					<p:column filterBy="#{productoF.producto.alto}"
+						headerText="Grueso (cm)" filterMatchMode="contains">
+						<h:outputText value="#{productoF.producto.alto}" />
+					</p:column>
+
+					<p:column filterBy="#{productoF.producto.largo}"
+						headerText="Largo (m)" filterMatchMode="contains">
+						<h:outputText value="#{productoF.producto.largo}" />
+					</p:column>
+
+					<p:column filterBy="#{productoF.producto.precio}"
+						headerText="Precio ($)" filterMatchMode="contains">
+						<h:outputText value="#{productoF.producto.precio}" />
+					</p:column>
+
+					<p:column filterBy="#{productoF.producto.tipo_madera}"
+						headerText="Tipo de madera" filterMatchMode="contains">
+						<h:outputText value="#{productoF.producto.tipo_madera.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{productoF.cantidad}" headerText="Cantidad"
+						filterMatchMode="contains">
+						<h:outputText value="#{productoF.cantidad}" />
+					</p:column>
+
+					<p:column filterBy="#{productoF.valor_neto}"
+						headerText="Valor Neto" filterMatchMode="contains">
+						<h:outputText value="#{productoF.valor_neto}" />
+					</p:column>
+
+
+					<p:column style="width:32px">
+						<p:commandButton update=":productoFacturaForm:display"
+							oncomplete="PF('productoFDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{productoF}"
+								target="#{facturaBean.productoF}" />
+						</p:commandButton>
+					</p:column>
+
+					<f:facet name="footer">
+       					 El valor total de la factura es  $ #{(facturaBean.valor)}
+   					 </f:facet>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<p:dialog header="Modificar" widgetVar="productoFDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty facturaBean.productoF}">
+
+						<h:outputText value="Nombre:" />
+						<h:outputText value="#{facturaBean.productoF.producto.nombre}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Cantidad:" />
+						<h:outputText value="#{facturaBean.productoF.cantidad}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Neuva Cantidad:" />
+						<h:inputText value="#{facturaBean.cantidadaux}" />
+
+
+						<f:facet name="footer">
+							<p:commandButton value="Actualizar" ajax="false"
+								action="#{facturaBean.actualizarProductoFactura}" />
+							<p:commandButton value="Eliminar" ajax="false"
+								action="#{facturaBean.eliminarProductoFactura}" />
+						</f:facet>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+
+
+
+		<h:form id="productoForm" rendered="#{facturaBean.fac}">
+
+			<p:fieldset id="Productos" legend="Lista de precios">
+
+				<p:dataTable var="producto" value="#{facturaBean.productos}"
+					widgetVar="productosTable"
+					emptyMessage="No hay productos que coincidan con los criterios"
+					filteredValue="#{facturaBean.productosFilter}">
+
+					<f:facet name="header">
+						Lista de precios
+					</f:facet>
+
+					<p:column filterBy="#{producto.nombre}" headerText="Nombre"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.ancho}" headerText="Ancho (cm)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.ancho}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.alto}" headerText="Grueso (cm)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.alto}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.largo}" headerText="Largo (m)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.largo}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.precio}" headerText="Precio ($)"
+						filterMatchMode="contains">
+						<h:outputText value="#{producto.precio}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.tipo_madera}"
+						headerText="Tipo de madera" filterMatchMode="contains">
+						<h:outputText value="#{producto.tipo_madera.nombre}" />
+					</p:column>
+
+					<p:column filterBy="#{producto.id_producto }"
+						headerText="Pulgadas (P3)" filterMatchMode="contains">
+						<h:outputText value="#{producto.pulgadas}" />
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:commandButton update=":productoForm:display"
+							oncomplete="PF('productoDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{producto}"
+								target="#{facturaBean.producto}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<p:dialog header="Agregar a Factura" widgetVar="productoDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty facturaBean.producto}">
+
+						<h:outputText value="Nombre:" />
+						<h:outputText value="#{facturaBean.producto.nombre}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Cantidad:" />
+						<h:inputText value="#{facturaBean.cantidad}" />
+
+
+						<f:facet name="footer">
+							<p:commandButton value="Agregar" ajax="false"
+								action="#{facturaBean.agregarProductoFactura}" />
+						</f:facet>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form >
+		<br/>
+		<h:form >
+			<p:commandButton value="Aceptar" ajax="false"
+				action="/index" />
+
+		</h:form>
+
+
+		<p:growl />
+	</ui:define>
+
+</ui:composition>
+</html>
+

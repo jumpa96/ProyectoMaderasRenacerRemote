@@ -303,6 +303,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 		try {
 
 			entityManager.persist(producto);
+			calcularValorFactura(producto.getFactura().getId_factura());
 
 			return producto;
 		} catch (Exception e) {
@@ -327,6 +328,8 @@ public class NegocioEJB implements NegocioEJBRemote {
 		try {
 
 			entityManager.merge(producto);
+			
+			calcularValorFactura(producto.getFactura().getId_factura());
 			return producto;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -358,6 +361,9 @@ public class NegocioEJB implements NegocioEJBRemote {
 		try {
 
 			entityManager.remove(producto);
+			calcularValorFactura(producto.getFactura().getId_factura());
+			
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -799,6 +805,12 @@ public class NegocioEJB implements NegocioEJBRemote {
 		
 		TypedQuery<Double> query = entityManager.createNamedQuery(Factura.VALOR_FACTURA,Double.class);
 		query.setParameter("idFactura", idFactura);
+		
+		Factura factura = entityManager.find(Factura.class, idFactura);
+		
+		factura.setValor_total(query.getSingleResult());
+		
+		entityManager.merge(factura);
 
 		return query.getSingleResult();
 		
@@ -815,6 +827,18 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 		return query.getSingleResult();
 		
+	}
+	
+	/**
+	 * Busca un cliente por la cedula
+	 * @param cedula
+	 * @return
+	 */
+	public Cliente buscarCliente(String cedula) {
+		
+		Cliente cliente = entityManager.find(Cliente.class, cedula);
+		
+		return cliente;
 	}
 	
 	

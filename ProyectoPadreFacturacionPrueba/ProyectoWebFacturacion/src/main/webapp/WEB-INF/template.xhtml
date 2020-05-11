@@ -8,7 +8,7 @@
 </h:head>
 <h:body>
 	<div align="center">
-		<div name="portada">
+		<div>
 			<p:graphicImage value="#{resource['maderasrenacer.jpeg']}" stream="false" />
 		</div>
 		<h:panelGroup rendered="#{!seguridadBean.autenticado}">
@@ -72,6 +72,13 @@
 								action="/seguro/registrarEntrada" />
 								<p:menuitem value="Ver Entradas" ajax="false"
 								action="/seguro/gestionarEntrada" />
+							
+						</p:submenu>
+						<p:submenu label="Facturacion">
+							<p:menuitem value="Facturar" ajax="false"
+								action="/seguro/facturacion" />
+								<p:menuitem value="Ver Facturas" ajax="false"
+								action="/seguro/gestionarFacturas" />
 							
 						</p:submenu>
 						

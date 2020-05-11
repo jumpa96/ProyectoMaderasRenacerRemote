@@ -316,4 +316,11 @@ public interface NegocioEJBRemote {
 	 */
 	public Double calcularTotalVentas();
 	
+	/**
+	 * Busca un cliente por la cedula
+	 * @param cedula
+	 * @return
+	 */
+	public Cliente buscarCliente(String cedula);
+	
 }
