@@ -51,7 +51,7 @@
 					</f:facet>
 
 					<p:column filterBy="#{proveedor.nombre}"
-						headerText="Nombre o razon social:" footerText="contains"
+						headerText="Nombre o razon social:" 
 						filterMatchMode="contains">
 						<h:outputText value="#{proveedor.nombre}" />
 					</p:column>
@@ -97,43 +97,55 @@
 				resizable="false" draggable="false" showEffect="fade"
 				hideEffect="fade" modal="true">
 				<p:outputPanel id="display">
-					<h:panelGrid columns="2" cellpadding="4"
+					<h:panelGrid columns="3" cellpadding="4"
 						rendered="#{not empty proveedorBean.proveedor}">
 
 						<h:outputText value="Nombre o razon social:" />
-						<h:inputText value="#{proveedorBean.proveedor.nombre}"
+						<h:outputText value="#{proveedorBean.proveedor.nombre}"
 							style="font-weight:bold" />
+						<p:inputText value="#{proveedorBean.nombreaux}"
+							style="font-weight:bold" placeholder="Nombre nuevo" />
 
 						<h:outputText value="Apellido: " />
-						<h:inputText value="#{proveedorBean.proveedor.apellido}"
+						<h:outputText value="#{proveedorBean.proveedor.apellido}"
 							style="font-weight:bold" />
+						<p:inputText value="#{proveedorBean.apellidoaux}"
+							style="font-weight:bold" placeholder="Apellido nuevo" />
 
 						<h:outputText value="Telefono: " />
-						<h:inputText value="#{proveedorBean.proveedor.telefono}"
+						<h:outputText value="#{proveedorBean.proveedor.telefono}"
 							style="font-weight:bold" />
+						<p:inputText value="#{proveedorBean.telefonoaux}"
+							style="font-weight:bold" placeholder="Telefono nuevo"/>
 
 						<h:outputText value="Direccion: " />
-						<h:inputText value="#{proveedorBean.proveedor.direccion}"
+						<h:outputText value="#{proveedorBean.proveedor.direccion}"
 							style="font-weight:bold" />
+						<p:inputText value="#{proveedorBean.direccionaux}"
+							style="font-weight:bold" placeholder="Direccion nueva"/>
 
 						<h:outputText value="Correo: " />
-						<h:inputText value="#{proveedorBean.proveedor.correo}"
+						<h:outputText value="#{proveedorBean.proveedor.correo}"
 							style="font-weight:bold" />
+						<p:inputText value="#{proveedorBean.correoaux}"
+							style="font-weight:bold" placeholder="Correo nuevo" />
 
 						<h:outputText value="Cedula o nit: " />
-						<h:outputText  value="#{proveedorBean.proveedor.cedula}"
+						<h:outputText value="#{proveedorBean.proveedor.cedula}"
 							style="font-weight:bold" />
+						<h:outputText />
 
 
 						<f:facet name="footer">
-							<p:commandButton value="Actualizar" ajax="false" action="#{proveedorBean.actualizarProveedor}" />
+							<p:commandButton value="Actualizar" ajax="false"
+								action="#{proveedorBean.actualizarProveedor}" />
 						</f:facet>
 
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
-
+		<p:growl />
 	</ui:define>
 
 </ui:composition>

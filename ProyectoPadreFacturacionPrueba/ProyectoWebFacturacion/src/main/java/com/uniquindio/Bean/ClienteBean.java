@@ -6,7 +6,6 @@ package com.uniquindio.Bean;
 import java.io.Serializable;
 import java.util.List;
 
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -57,10 +56,13 @@ public class ClienteBean implements Serializable {
 	@NotEmpty
 	private String nombre;
 
+	private String nombreaux;
+
 	/**
 	 * apellido de una persona
 	 */
 	private String apellido;
+	private String apellidoaux;
 
 	/**
 	 * telefono de una persona
@@ -68,109 +70,148 @@ public class ClienteBean implements Serializable {
 	@NotNull
 	@NotEmpty
 	private String telefono;
+	private String telefonoaux;
 
 	/**
 	 * correo de una persona
 	 */
 	private String correo;
+	private String correoaux;
 
 	/**
 	 * direccion de una persona
 	 */
 	private String direccion;
-	
-	private Cliente cliente;
-	
-	private List<Cliente>clientes;
-	
-	private List<Cliente>clientesFilter;
+	private String direccionaux;
 
-	
+	private Cliente cliente;
+
+	private List<Cliente> clientes;
+
+	private List<Cliente> clientesFilter;
+
 	/**
 	 * constructor del bean
 	 */
 	@PostConstruct
 	private void init() {
-		clientes= adminEJB.listarCliente();
+		clientes = adminEJB.listarCliente();
 		cliente = new Cliente();
-		
+
 	}
-	
+
 	/**
 	 * medoto para limpiar campos
 	 */
 	public void limpiarCampos() {
-		cedula ="";
-		nombre="";
-		apellido="";
-		telefono="";
-		correo="";
-		direccion="";
-		
+		cedula = "";
+		nombre = "";
+		apellido = "";
+		telefono = "";
+		correo = "";
+		direccion = "";
+
+		nombreaux = "";
+		apellidoaux = "";
+		telefonoaux = "";
+		correoaux = "";
+		direccionaux = "";
 	}
-	
+
 	/**
 	 * metodo para agregar un cliente
+	 * 
 	 * @return pagina de destino
 	 */
 	public String agregarCliente() {
-		
-				
-				Cliente cliente =new Cliente();
 
-				cliente.setApellido(apellido);
-				cliente.setCedula(cedula);
-				cliente.setCorreo(correo);
-				cliente.setDireccion(direccion);
-				cliente.setNombre(nombre);
-				cliente.setTelefono(telefono);
-		try {	
-				adminEJB.agregarCliente(cliente);
-				
-				Util.mostrarMensaje("Registro Exitoso", "Registro Exitoso");
-				
-				limpiarCampos();
-				
-				clientes= adminEJB.listarCliente();
-				
-				return "/index.xhtml";
+		Cliente cliente = new Cliente();
+
+		cliente.setApellido(apellido);
+		cliente.setCedula(cedula);
+		cliente.setCorreo(correo);
+		cliente.setDireccion(direccion);
+		cliente.setNombre(nombre);
+		cliente.setTelefono(telefono);
+		try {
+			adminEJB.agregarCliente(cliente);
+
+			Util.mostrarMensaje("Registro Exitoso", "Registro Exitoso");
+
+			limpiarCampos();
+
+			clientes = adminEJB.listarCliente();
+
+			return "/index.xhtml";
 
 		} catch (ObjetoDuplicadoException e) {
-			
-			Util.mostrarMensaje("La cedula del cliente ya se encuentra registrada", "La cedula del cliente ya se encuentra registrada");
+
+			Util.mostrarMensaje("La cedula del cliente ya se encuentra registrada",
+					"La cedula del cliente ya se encuentra registrada");
 			limpiarCampos();
 			e.printStackTrace();
 			return "/index.xhtml";
-		}	
-		
+		}
+
 	}
-	
+
 	/**
-	 * metodo para actualizar un cliente 
+	 * metodo para actualizar un cliente
+	 * 
 	 * @return
 	 */
 	public String actualizarCliente() {
-		
+
 		try {
+
+			if (cliente.getApellido() != null && apellidoaux.equals("")) {
+				apellidoaux = cliente.getApellido();
+			}
+
+			if (cliente.getCorreo() != null && correoaux.equals("")) {
+
+				correoaux = cliente.getCorreo();
+			}
+
+			if (cliente.getDireccion() != null && direccionaux.equals("")) {
+				direccionaux = cliente.getDireccion();
+			}
+
+			if (cliente.getNombre() != null && nombreaux.equals("")) {
+
+				nombreaux = cliente.getNombre();
+			}
+
+			if (cliente.getTelefono() != null && telefonoaux.equals("")) {
+
+				telefonoaux = cliente.getTelefono();
+			}
+
+			cliente.setApellido(apellidoaux);
+			cliente.setCorreo(correoaux);
+			cliente.setDireccion(direccionaux);
+			cliente.setNombre(nombreaux);
+			cliente.setTelefono(telefonoaux);
+
 			adminEJB.actualizarCliente(cliente);
-			
+
 			Util.mostrarMensaje("Cambio Exitoso", "Cambio Exitoso");
-			
-			clientes= adminEJB.listarCliente();
-			
+
+			clientes = adminEJB.listarCliente();
+
+			limpiarCampos();
+
 			return "/seguro/gestionarCliente.xhtml";
-			
+
 		} catch (ObjetoNoExisteException e) {
 			Util.mostrarMensaje("Algo fallo", "Algo fallo");
+			limpiarCampos();
 			e.printStackTrace();
 			return "/index.xhtml";
 		}
-		
-		
+
 	}
-	
-	
-	
+
 	/**
 	 * @return the cedula
 	 */
@@ -295,6 +336,76 @@ public class ClienteBean implements Serializable {
 	 */
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	/**
+	 * @return the nombreaux
+	 */
+	public String getNombreaux() {
+		return nombreaux;
+	}
+
+	/**
+	 * @return the apellidoaux
+	 */
+	public String getApellidoaux() {
+		return apellidoaux;
+	}
+
+	/**
+	 * @return the telefonoaux
+	 */
+	public String getTelefonoaux() {
+		return telefonoaux;
+	}
+
+	/**
+	 * @return the correoaux
+	 */
+	public String getCorreoaux() {
+		return correoaux;
+	}
+
+	/**
+	 * @return the direccionaux
+	 */
+	public String getDireccionaux() {
+		return direccionaux;
+	}
+
+	/**
+	 * @param nombreaux the nombreaux to set
+	 */
+	public void setNombreaux(String nombreaux) {
+		this.nombreaux = nombreaux;
+	}
+
+	/**
+	 * @param apellidoaux the apellidoaux to set
+	 */
+	public void setApellidoaux(String apellidoaux) {
+		this.apellidoaux = apellidoaux;
+	}
+
+	/**
+	 * @param telefonoaux the telefonoaux to set
+	 */
+	public void setTelefonoaux(String telefonoaux) {
+		this.telefonoaux = telefonoaux;
+	}
+
+	/**
+	 * @param correoaux the correoaux to set
+	 */
+	public void setCorreoaux(String correoaux) {
+		this.correoaux = correoaux;
+	}
+
+	/**
+	 * @param direccionaux the direccionaux to set
+	 */
+	public void setDireccionaux(String direccionaux) {
+		this.direccionaux = direccionaux;
 	}
 
 }

@@ -55,11 +55,14 @@ public class ProveedorBean implements Serializable {
 	@NotNull
 	@NotEmpty
 	private String nombre;
+	private String nombreaux;
+
 
 	/**
 	 * apellido de una persona
 	 */
 	private String apellido;
+	private String apellidoaux;
 
 	/**
 	 * telefono de una persona
@@ -67,16 +70,19 @@ public class ProveedorBean implements Serializable {
 	@NotNull
 	@NotEmpty
 	private String telefono;
+	private String telefonoaux;
 
 	/**
 	 * correo de una persona
 	 */
 	private String correo;
+	private String correoaux;
 
 	/**
 	 * direccion de una persona
 	 */
 	private String direccion;
+	private String direccionaux;
 	
 	private Proveedor proveedor;
 	
@@ -98,6 +104,12 @@ public class ProveedorBean implements Serializable {
 		telefono="";
 		correo="";
 		direccion="";
+		
+		nombreaux="";
+		apellidoaux="";
+		telefonoaux="";
+		correoaux="";
+		direccionaux="";
 		
 	}
 	
@@ -137,13 +149,44 @@ public class ProveedorBean implements Serializable {
 	}
 	
 	/**
-	 * metodo para actualizar un cliente 
+	 * metodo para actualizar un proveedor 
 	 * @return
 	 */
 	public String actualizarProveedor() {
 		
 		try {
+			
+			if (proveedor.getApellido() != null && apellidoaux.equals("")) {
+				apellidoaux = proveedor.getApellido();
+			}
+
+			if (proveedor.getCorreo() != null && correoaux.equals("")) {
+
+				correoaux = proveedor.getCorreo();
+			}
+
+			if (proveedor.getDireccion() != null && direccionaux.equals("")) {
+				direccionaux = proveedor.getDireccion();
+			}
+
+			if (proveedor.getNombre() != null && nombreaux.equals("")) {
+
+				nombreaux = proveedor.getNombre();
+			}
+
+			if (proveedor.getTelefono() != null && telefonoaux.equals("")) {
+
+				telefonoaux = proveedor.getTelefono();
+			}
+
+			proveedor.setApellido(apellidoaux);
+			proveedor.setCorreo(correoaux);
+			proveedor.setDireccion(direccionaux);
+			proveedor.setNombre(nombreaux);
+			proveedor.setTelefono(telefonoaux);
+			
 			adminEJB.actualizarproveedor(proveedor);
+			limpiarCampos();
 			
 			Util.mostrarMensaje("Cambio Exitoso", "Cambio Exitoso");
 			
@@ -153,6 +196,8 @@ public class ProveedorBean implements Serializable {
 			
 		} catch (ObjetoNoExisteException e) {
 			Util.mostrarMensaje("Algo fallo", "Algo fallo");
+			proveedores= adminEJB.listarProveedores();
+			limpiarCampos();
 			e.printStackTrace();
 			return "/index.xhtml";
 		}
@@ -284,6 +329,76 @@ public class ProveedorBean implements Serializable {
 	 */
 	public void setProveedorFilter(List<Proveedor> proveedorFilter) {
 		this.proveedorFilter = proveedorFilter;
+	}
+
+	/**
+	 * @return the nombreaux
+	 */
+	public String getNombreaux() {
+		return nombreaux;
+	}
+
+	/**
+	 * @return the apellidoaux
+	 */
+	public String getApellidoaux() {
+		return apellidoaux;
+	}
+
+	/**
+	 * @return the telefonoaux
+	 */
+	public String getTelefonoaux() {
+		return telefonoaux;
+	}
+
+	/**
+	 * @return the correoaux
+	 */
+	public String getCorreoaux() {
+		return correoaux;
+	}
+
+	/**
+	 * @return the direccionaux
+	 */
+	public String getDireccionaux() {
+		return direccionaux;
+	}
+
+	/**
+	 * @param nombreaux the nombreaux to set
+	 */
+	public void setNombreaux(String nombreaux) {
+		this.nombreaux = nombreaux;
+	}
+
+	/**
+	 * @param apellidoaux the apellidoaux to set
+	 */
+	public void setApellidoaux(String apellidoaux) {
+		this.apellidoaux = apellidoaux;
+	}
+
+	/**
+	 * @param telefonoaux the telefonoaux to set
+	 */
+	public void setTelefonoaux(String telefonoaux) {
+		this.telefonoaux = telefonoaux;
+	}
+
+	/**
+	 * @param correoaux the correoaux to set
+	 */
+	public void setCorreoaux(String correoaux) {
+		this.correoaux = correoaux;
+	}
+
+	/**
+	 * @param direccionaux the direccionaux to set
+	 */
+	public void setDireccionaux(String direccionaux) {
+		this.direccionaux = direccionaux;
 	}
 	
 	

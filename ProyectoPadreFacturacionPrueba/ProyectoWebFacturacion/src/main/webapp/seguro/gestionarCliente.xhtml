@@ -96,32 +96,43 @@
 				resizable="false" draggable="false" showEffect="fade"
 				hideEffect="fade" modal="true">
 				<p:outputPanel id="display">
-					<h:panelGrid columns="2" cellpadding="4"
+					<h:panelGrid columns="3" cellpadding="4"
 						rendered="#{not empty clienteBean.cliente}">
 
 						<h:outputText value="Nombre o razon social:" />
-						<h:inputText value="#{clienteBean.cliente.nombre}"
-							style="font-weight:bold" />
+						<h:outputText value="#{clienteBean.cliente.nombre}"
+							style="font-weight:bold"/>
+						<p:inputText value="#{clienteBean.nombreaux}"
+							style="font-weight:bold" placeholder="Nombre nuevo" />
 
 						<h:outputText value="Apellido: " />
-						<h:inputText value="#{clienteBean.cliente.apellido}"
-							style="font-weight:bold" />
-
+						<h:outputText value="#{clienteBean.cliente.apellido}"
+							style="font-weight:bold"  />
+						<p:inputText value="#{clienteBean.apellidoaux}"
+							style="font-weight:bold" placeholder="Apellido nuevo"  />
+						
 						<h:outputText value="Telefono: " />
-						<h:inputText value="#{clienteBean.cliente.telefono}"
-							style="font-weight:bold" />
+						<h:outputText value="#{clienteBean.cliente.telefono}"
+							style="font-weight:bold"  />
+						<p:inputText value="#{clienteBean.telefonoaux}"
+							style="font-weight:bold" placeholder="Telefono nuevo" />
 
 						<h:outputText value="Direccion: " />
-						<h:inputText value="#{clienteBean.cliente.direccion}"
-							style="font-weight:bold" />
+						<h:outputText value="#{clienteBean.cliente.direccion}"
+							style="font-weight:bold"  />
+						<p:inputText value="#{clienteBean.direccionaux}"
+							style="font-weight:bold" placeholder="Direccion nueva" />
 
 						<h:outputText value="Correo: " />
-						<h:inputText value="#{clienteBean.cliente.correo}"
-							style="font-weight:bold" />
+						<h:outputText value="#{clienteBean.cliente.correo}"
+							style="font-weight:bold"  />
+						<p:inputText value="#{clienteBean.correoaux}"
+							style="font-weight:bold" placeholder="Correo nuevo" />
 
 						<h:outputText value="Cedula o nit: " />
 						<h:outputText  value="#{clienteBean.cliente.cedula}"
 							style="font-weight:bold" />
+						<h:outputText />
 
 
 						<f:facet name="footer">
@@ -132,7 +143,7 @@
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
-
+	<p:growl/>
 	</ui:define>
 
 </ui:composition>

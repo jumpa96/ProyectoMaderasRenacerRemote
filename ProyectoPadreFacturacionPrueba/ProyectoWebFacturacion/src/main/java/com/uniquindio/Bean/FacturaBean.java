@@ -29,6 +29,7 @@ import co.uniquindio.entidades.Producto_Factura;
 import co.uniquindio.entidades.Producto_Madera;
 import co.uniquindio.entidades.Usuario;
 
+
 /**
  * @author jpgb9
  *
@@ -57,7 +58,7 @@ public class FacturaBean implements Serializable {
 	private String cantidad;
 
 	private String cantidadaux;
-	
+
 	private Double valor;
 
 	/**
@@ -134,30 +135,29 @@ public class FacturaBean implements Serializable {
 	private List<Producto_Madera> productosFilter;
 
 	private List<Producto_Factura> productosFacturados;
-	
+
 	private List<Producto_Factura> productosFactura;
 
 	private List<Producto_Factura> productosFacturadosFilter;
-	
+
 	private List<Factura> facturas;
-	
-	private List<Factura>facturasFilter;
-	
+
+	private List<Factura> facturasFilter;
+
 	private Factura factura;
 
 	/**
 	 * factura agregada
 	 */
 	private Factura facturaaux;
-	
-	
+
 	@PostConstruct
 	private void init() {
 		productos = adminEJB.listarProducto();
 		producto = new Producto_Madera();
 		productoF = new Producto_Factura();
 		facturas = adminEJB.listarFacturas();
-		
+
 	}
 
 	/**
@@ -204,6 +204,20 @@ public class FacturaBean implements Serializable {
 
 	}
 
+	
+	/**
+	 * Metodo para crear una factura
+	 * 
+	 * @return
+	 */
+	public String aceptar() {
+
+		
+			Util.mostrarMensaje("Factura guardada", "Factura guardada");
+			return "/index";
+
+	}
+	
 	/**
 	 * metodo para agregar un cliente
 	 * 
@@ -241,13 +255,13 @@ public class FacturaBean implements Serializable {
 	public void actualizarProductoFactura() {
 
 		try {
-			
-			int can  = Integer.parseInt(cantidadaux);
-			productoF.setCantidad(can);
-			productoF.setValor_neto(can*productoF.getProducto().getPrecio());
 
-			facturaaux=adminEJB.actualizarProductoFactura(productoF).getFactura();
-			valor=adminEJB.calcularValorFactura(facturaaux.getId_factura());
+			int can = Integer.parseInt(cantidadaux);
+			productoF.setCantidad(can);
+			productoF.setValor_neto(can * productoF.getProducto().getPrecio());
+
+			facturaaux = adminEJB.actualizarProductoFactura(productoF).getFactura();
+			valor = adminEJB.calcularValorFactura(facturaaux.getId_factura());
 
 			Util.mostrarMensaje("Cambio Exitoso", "Cambio Exitoso");
 
@@ -275,14 +289,15 @@ public class FacturaBean implements Serializable {
 			Util.mostrarMensaje("El producto fue eliminado", "El producto fue eliminado");
 
 			productosFacturados = adminEJB.listarProductosFactura(facturaaux.getId_factura());
-			
-			if (productosFacturados.size()>0) {
-				
+
+			if (productosFacturados.size() > 0) {
+
 				valor = adminEJB.calcularValorFactura(productoF.getFactura().getId_factura());
-			}else {
+			} else {
 				valor = 0.0;
 			}
 
+			Util.mostrarMensaje("Producto eliminado", "Producto eliminado");
 
 		} catch (ObjetoNoExisteException e) {
 
@@ -294,46 +309,72 @@ public class FacturaBean implements Serializable {
 	}
 
 	public void agregarProductoFactura() {
-		
-		Producto_Factura pro = new Producto_Factura(); 
-		int can = Integer.parseInt(cantidad);
-		pro.setCantidad(can);
-		pro.setFactura(facturaaux);
-		pro.setProducto(producto);
-		pro.setValor_neto(can*producto.getPrecio());
-		
-		
-		try {
-			facturaaux=adminEJB.agregarAgregarProductoFacura(pro).getFactura();
-			cantidad="";
-			valor=adminEJB.calcularValorFactura(pro.getFactura().getId_factura());
-			productosFacturados=adminEJB.listarProductosFactura(facturaaux.getId_factura());
-			
-		} catch (ObjetoDuplicadoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		if (isNumeric(cantidad)) {
 
+			int can = Integer.parseInt(cantidad);
+
+			if (can > 0) {
+
+				Producto_Factura pro = new Producto_Factura();
+
+				pro.setCantidad(can);
+				pro.setFactura(facturaaux);
+				pro.setProducto(producto);
+				pro.setValor_neto(can * producto.getPrecio());
+
+				try {
+					facturaaux = adminEJB.agregarAgregarProductoFacura(pro).getFactura();
+					cantidad = "";
+					valor = adminEJB.calcularValorFactura(pro.getFactura().getId_factura());
+					productosFacturados = adminEJB.listarProductosFactura(facturaaux.getId_factura());
+
+				} catch (ObjetoDuplicadoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				Util.mostrarMensaje("Producto agregado", "Producto agregado");
+			} else {
+				cantidad = "";
+				Util.mostrarMensaje("La cantidad tiene que ser mayor a cero", "La cantidad tiene que ser mayor a cero");
+			}
+
+		} else {
+			cantidad = "";
+			Util.mostrarMensaje("La cantidad tiene que ser un numero", "La cantidad tiene que ser un numero");
+		}
 	}
-	
-	public List<Producto_Factura> listarProductosfactura(){
+
+	// Funcion isNumeric() que devuelve True o False.
+	private static boolean isNumeric(String str) {
+		try {
+			Integer.parseInt(str);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+
+	public List<Producto_Factura> listarProductosfactura() {
 		productosFactura = adminEJB.listarProductosFactura(factura.getId_factura());
 		return productosFactura;
-		
+
 	}
-	
+
 	public String anularFactura() {
-		
+
 		try {
 			factura.setEstado(false);
 			adminEJB.anularFactura(factura);
 			facturas = adminEJB.listarFacturas();
+
+			Util.mostrarMensaje("Factura " + factura.getId_factura() + " ha sido anulada",
+					"Factura " + factura.getId_factura() + " ha sido anulada");
+
 			return "/seguro/gestionarFacturas";
-			
-			
+
 		} catch (ObjetoNoExisteException e) {
-			// TODO Auto-generated catch block
+			Util.mostrarMensaje("Algo fallo", "Algo fallo");
 			e.printStackTrace();
 		}
 		return null;
@@ -730,7 +771,5 @@ public class FacturaBean implements Serializable {
 	public void setProductosFactura(List<Producto_Factura> productosFactura) {
 		this.productosFactura = productosFactura;
 	}
-
-	
 
 }
