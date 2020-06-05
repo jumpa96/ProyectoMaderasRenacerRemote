@@ -28,7 +28,7 @@ import co.uniquindio.entidades.Cliente;
  *
  */
 @FacesConfig(version = Version.JSF_2_3)
-@Named(value="clienteBean")
+@Named(value = "clienteBean")
 @ApplicationScoped
 public class ClienteBean implements Serializable {
 
@@ -137,7 +137,8 @@ public class ClienteBean implements Serializable {
 
 		} catch (ObjetoDuplicadoException e) {
 			
-			Util.mostrarMensaje("Cliente Repetido", "Cliente Repetido");
+			Util.mostrarMensaje("La cedula del cliente ya se encuentra registrada", "La cedula del cliente ya se encuentra registrada");
+			limpiarCampos();
 			e.printStackTrace();
 			return "/index.xhtml";
 		}	

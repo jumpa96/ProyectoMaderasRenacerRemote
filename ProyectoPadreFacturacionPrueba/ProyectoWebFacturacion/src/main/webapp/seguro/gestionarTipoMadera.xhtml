@@ -84,7 +84,7 @@
 						rendered="#{not empty tipoMaderaBean.tipo}">
 
 						<h:outputText value="Nombre " />
-						<h:inputText value="#{tipoMaderaBean.tipo.nombre}"
+						<h:outputText value="#{tipoMaderaBean.tipo.nombre}"
 							style="font-weight:bold" />
 
 						<h:outputText value="Cantidad de Pulgadas: " />
@@ -93,6 +93,10 @@
 
 						<h:outputText value="Id: " />
 						<h:outputText value="#{tipoMaderaBean.tipo.id_madera}"
+							style="font-weight:bold" />
+							
+						<h:outputText value="Nuevo Nombre: " />
+						<h:inputText value="#{tipoMaderaBean.nombreaux}"
 							style="font-weight:bold" />
 
 
@@ -105,7 +109,7 @@
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
-
+	<p:growl/>
 	</ui:define>
 
 </ui:composition>

@@ -27,69 +27,78 @@ import co.uniquindio.entidades.Tipo_Madera;
  *
  */
 @FacesConfig(version = Version.JSF_2_3)
-@Named(value="tipoMaderaBean")
+@Named(value = "tipoMaderaBean")
 @ViewScoped
-public class TipoMaderaBean implements Serializable{
+public class TipoMaderaBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * realiza la conexion con la capa de negocio
 	 */
 	@EJB
 	private NegocioEJB adminEJB;
-	
+
 	/**
 	 * nombre de una persona
 	 */
 	@NotNull
 	@NotEmpty
 	private String nombre;
-	
+
+	private String nombreaux;
+
 	private Tipo_Madera tipo;
-	
-	private List <Tipo_Madera> tipos;
-	
-	private List <Tipo_Madera> tiposFilter;
-	
+
+	private List<Tipo_Madera> tipos;
+
+	private List<Tipo_Madera> tiposFilter;
+
 	@PostConstruct
 	private void init() {
-		tipos= adminEJB.listarTiposMadera();
-		
-		
+		tipos = adminEJB.listarTiposMadera();
+
 	}
-	
+
 	public void limpiarCampos() {
-		
-		nombre="";
-		
+
+		nombre = "";
+
 	}
-	
+
 	/**
 	 * metodo para agregar un tipo de madera a la BD
+	 * 
 	 * @return
 	 */
 	public String agregarTipoMadera() {
 		
-		Tipo_Madera tipo2 = new Tipo_Madera();
-		tipo2.setCantidad_pulgadas(0.0);
-		tipo2.setNombre(nombre);
-		
 		try {
-			adminEJB.agregarAgregarTipoMadera(tipo2);
-			Util.mostrarMensaje("Registro Exitoso", "Registro Exitoso");
 			
-			limpiarCampos();
-			tipos=adminEJB.listarTiposMadera();
-			
-			return "/index.xhtml";
-			
-			
-		} catch (ObjetoDuplicadoException e) {
-			
+			if (adminEJB.buscarTipoMaderaNombre(nombre).isEmpty()) {
+				Tipo_Madera tipo2 = new Tipo_Madera();
+				tipo2.setCantidad_pulgadas(0.0);
+				tipo2.setNombre(nombre);
+
+				
+					adminEJB.agregarAgregarTipoMadera(tipo2);
+					Util.mostrarMensaje("Registro Exitoso", "Registro Exitoso");
+
+					limpiarCampos();
+					tipos = adminEJB.listarTiposMadera();
+
+					return "/index.xhtml";
+
+				
+			}else {
+				Util.mostrarMensaje("El tipo de madera ya se encuentra registrado", "El tipo de madera ya se encuentra registrado");
+				return "";
+			}
+		}catch (ObjetoDuplicadoException e) {
+
 			Util.mostrarMensaje("Tipo Madera Repetido", "Tipo Madera Repetido");
 			e.printStackTrace();
 			return "/index.xhtml";
@@ -97,26 +106,39 @@ public class TipoMaderaBean implements Serializable{
 		
 		
 	}
-	
+
 	public String actualizarTipoMadera() {
+
+		if (nombreaux.equals("")) {
+			Util.mostrarMensaje("El nombre no puede estar vacio", "El nombre no puede estar vacio");
+			nombreaux="";
+			tipos = adminEJB.listarTiposMadera();
+			return "";
 		
-		try {
+		}else {
 			
-			adminEJB.actualizarTipoMadera(tipo);
-			
-			Util.mostrarMensaje("Cambio Exitoso", "Cambio Exitoso");
-			
-			tipos=adminEJB.listarTiposMadera();
-			
-			return "/seguro/gestionarTipoMadera.xhtml";
-			
-			
-		} catch (ObjetoNoExisteException e) {
-			Util.mostrarMensaje("Algo fallo", "Algo fallo");
-			e.printStackTrace();
-			return "/index.xhtml";
+			try {
+				tipo.setNombre(nombreaux);
+				adminEJB.actualizarTipoMadera(tipo);
+
+				Util.mostrarMensaje("Cambio Exitoso", "Cambio Exitoso");
+
+				tipos = adminEJB.listarTiposMadera();
+				nombreaux="";
+
+				return "/seguro/gestionarTipoMadera.xhtml";
+
+			} catch (ObjetoNoExisteException e) {
+
+				Util.mostrarMensaje("Algo fallo", "Algo fallo");
+				nombreaux="";
+				tipos = adminEJB.listarTiposMadera();
+				e.printStackTrace();
+				return "/index.xhtml";
+			}
+
 		}
-		
+
 	}
 
 	/**
@@ -164,17 +186,29 @@ public class TipoMaderaBean implements Serializable{
 	/**
 	 * @return the tiposFilter
 	 */
-	public List <Tipo_Madera> getTiposFilter() {
+	public List<Tipo_Madera> getTiposFilter() {
 		return tiposFilter;
 	}
 
 	/**
 	 * @param tiposFilter the tiposFilter to set
 	 */
-	public void setTiposFilter(List <Tipo_Madera> tiposFilter) {
+	public void setTiposFilter(List<Tipo_Madera> tiposFilter) {
 		this.tiposFilter = tiposFilter;
 	}
-	
-	
+
+	/**
+	 * @return the nombreaux
+	 */
+	public String getNombreaux() {
+		return nombreaux;
+	}
+
+	/**
+	 * @param nombreaux the nombreaux to set
+	 */
+	public void setNombreaux(String nombreaux) {
+		this.nombreaux = nombreaux;
+	}
 
 }

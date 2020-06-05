@@ -26,7 +26,7 @@ import co.uniquindio.entidades.Tipo_Madera;
  *
  */
 @FacesConfig(version = Version.JSF_2_3)
-@Named(value="productoMaderaBean")
+@Named(value = "productoMaderaBean")
 @ViewScoped
 public class ProductoMaderaBean implements Serializable {
 
@@ -112,32 +112,42 @@ public class ProductoMaderaBean implements Serializable {
 	 */
 	public String agregarProducto() {
 		
-		Producto_Madera pro = new Producto_Madera();
-		
-		pro.setAlto(alto);
-		pro.setAncho(ancho);
-		pro.setLargo(largo);
-		pro.setNombre(nombre);
-		pro.setPrecio(precio);
-		pro.setPulgadas(pulgadas);
-		pro.setTipo_madera(tipo);
-		
-		try {
-			adminEJB.agregarAgregarProductoMadera(pro);
+		if (alto>0 && ancho>0 && largo>0 && precio>0 && pulgadas>0) {
 			
-			Util.mostrarMensaje("Registro Exitoso", "Registro Exitoso");
+			Producto_Madera pro = new Producto_Madera();
+			
+			pro.setAlto(alto);
+			pro.setAncho(ancho);
+			pro.setLargo(largo);
+			pro.setNombre(nombre);
+			pro.setPrecio(precio);
+			pro.setPulgadas(pulgadas);
+			pro.setTipo_madera(tipo);
+			
+			try {
+				adminEJB.agregarAgregarProductoMadera(pro);
+				
+				Util.mostrarMensaje("Registro Exitoso", "Registro Exitoso");
 
-			limpiarCampos();
-			
-			productos=adminEJB.listarProducto();
-			
-			return "/index.xhtml";
-			
-		} catch (ObjetoDuplicadoException e) {
-			Util.mostrarMensaje("Producto Repetido", "Producto Repetido");
-			e.printStackTrace();
-			return "/index.xhtml";		
+				limpiarCampos();
+				
+				productos=adminEJB.listarProducto();
+				
+				return "/index.xhtml";
+				
+			} catch (ObjetoDuplicadoException e) {
+				Util.mostrarMensaje("Producto Repetido", "Producto Repetido");
+				e.printStackTrace();
+				return "/index.xhtml";		
 			}
+			
+		}else {
+			
+			Util.mostrarMensaje("Los valores tienen que ser mayores a cero", "Los valores tienen que ser mayores a cero");
+			return "";
+		}
+		
+		
 		
 	}
 	
@@ -149,17 +159,25 @@ public class ProductoMaderaBean implements Serializable {
 	public String actualizarProducto () {
 		
 		try {
-			producto.setPrecio(precioaux);
-			
-			adminEJB.actualizarProductoMadera(producto);
-			
-			Util.mostrarMensaje("Cambio Exitoso", "Cambio Exitoso");
-			
-			limpiarCampos();
-			productos=adminEJB.listarProducto();
+			if(precioaux>0 && nombre =="") {
+				
+				producto.setPrecio(precioaux);
 
-			return "/seguro/gestionarProductos.xhtml";
+				adminEJB.actualizarProductoMadera(producto);
 
+				Util.mostrarMensaje("Cambio Exitoso", "Cambio Exitoso");
+
+				limpiarCampos();
+				productos = adminEJB.listarProducto();
+
+				return "/seguro/gestionarProductos.xhtml";
+			}else {
+				
+				Util.mostrarMensaje("El precio tiene que ser mayor a cero, o el nombre esta vacio", "El precio tiene que ser mayor a cero, o el nombre esta vacio");
+				precioaux =0.0;
+				productos=adminEJB.listarProducto();
+				return "/seguro/gestionarProductos.xhtml";
+			}
 			
 		} catch (ObjetoNoExisteException e) {
 			

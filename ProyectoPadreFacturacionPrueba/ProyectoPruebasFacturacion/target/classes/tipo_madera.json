@@ -1,7 +1,7 @@
 {
 	"Tipo_Madera": [
 		{
-			"id_madera": 1,
+			"id_madera": 200,
 			"cantidad_pulgadas": 0.0,
 			"nombre": "Formaleta"			
 		}

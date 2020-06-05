@@ -13,7 +13,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = Tipo_Madera.LISTAR_TIPOS_MADERA, query = "select t from Tipo_Madera t"),
-	@NamedQuery(name = Tipo_Madera.BUSCAR_TIPO_ID, query = "select t from Tipo_Madera t where t.id_madera=:id")
+	@NamedQuery(name = Tipo_Madera.BUSCAR_TIPO_ID, query = "select t from Tipo_Madera t where t.id_madera=:id"),
+	@NamedQuery(name = Tipo_Madera.BUSCAR_TIPO_NOMBRE, query = "select t from Tipo_Madera t where t.nombre=:nombre")
 })
 public class Tipo_Madera implements Serializable {
 
@@ -26,6 +27,11 @@ public class Tipo_Madera implements Serializable {
 	 * Busca un tipo de madera
 	 */
 	public static final String BUSCAR_TIPO_ID="Busca un tipo de madera";
+	
+	/**
+	 * Busca un tipo de madera por nombre
+	 */
+	public static final String BUSCAR_TIPO_NOMBRE="Busca un tipo de madera por nombre";
 	
 	/**
 	 * nombre comun de la madera

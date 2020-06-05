@@ -27,7 +27,7 @@ import co.uniquindio.entidades.Proveedor;
  *
  */
 @FacesConfig(version = Version.JSF_2_3)
-@Named(value="proveedorBean")
+@Named(value = "proveedorBean")
 @ApplicationScoped
 public class ProveedorBean implements Serializable {
 

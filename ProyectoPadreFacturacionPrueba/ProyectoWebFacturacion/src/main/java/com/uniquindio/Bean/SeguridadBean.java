@@ -31,7 +31,7 @@ import co.uniquindio.entidades.Usuario;
  *
  */
 @FacesConfig(version = Version.JSF_2_3)
-@Named("seguridadBean")
+@Named(value = "seguridadBean")
 @SessionScoped
 public class SeguridadBean implements Serializable {
 

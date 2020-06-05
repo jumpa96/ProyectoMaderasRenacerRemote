@@ -323,4 +323,11 @@ public interface NegocioEJBRemote {
 	 */
 	public Cliente buscarCliente(String cedula);
 	
+	/**
+	 * Busca Un Tipo de madera por nombre 
+	 *  
+	 * @return ist<Tipo_Madera>
+	 */
+	public List<Tipo_Madera> buscarTipoMaderaNombre(String nombre);
+	
 }

@@ -346,40 +346,7 @@ public class ModeloTestEJB {
 		}
 	}
 
-	/**
-	 * Metodo de prueba para las entradas
-	 * 
-	 * @throws ObjetoNoExisteException
-	 */
-	@Test
-	@Transactional(value = TransactionMode.ROLLBACK)
-	@UsingDataSet({ "personas.json", "entrada_madera.json", "tipo_madera.json" })
-	public void probarEntrada() throws ObjetoNoExisteException {
-
-		try {
-
-			double suma;
-			TypedQuery<Double> query = entityManager.createNamedQuery(Entrada_Madera.PULGADAS_TIPO, Double.class);
-			query.setParameter("id", 1);
-
-			suma = query.getSingleResult();
-
-			Tipo_Madera tipo = entityManager.find(Tipo_Madera.class, 1);
-
-			tipo.setCantidad_pulgadas(suma);
-
-			Tipo_Madera aux = negocioEJB.actualizarTipoMadera(tipo);
-
-			if (aux.getCantidad_pulgadas() == suma)
-
-				Assert.assertNotNull(aux);
-
-		} catch (NoResultException e) {
-			e.printStackTrace();
-
-		}
-
-	}
+	
 
 	/**
 	 * Metodo de prueba para actualizar Entrada de madera
@@ -522,7 +489,7 @@ public class ModeloTestEJB {
 	 */
 	@Test
 	@Transactional(value = TransactionMode.ROLLBACK)
-	@UsingDataSet({ "personas.json", "entrada_madera.json", "tipo_madera.json", "producto_madera.json",
+	@UsingDataSet({ "personas.json", "entrada_madera.json", "producto_madera.json",
 			"facturas.json" })
 	public void agregarFactura() {
 

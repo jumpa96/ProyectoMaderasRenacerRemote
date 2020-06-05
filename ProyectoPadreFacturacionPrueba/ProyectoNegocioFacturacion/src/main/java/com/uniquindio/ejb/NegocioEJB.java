@@ -590,6 +590,23 @@ public class NegocioEJB implements NegocioEJBRemote {
 	}
 	
 	/**
+	 * Busca Un Tipo de madera por nombre 
+	 *  
+	 * @return List<Tipo_Madera>
+	 */
+	public List<Tipo_Madera> buscarTipoMaderaNombre(String nombre)  {
+		
+			TypedQuery<Tipo_Madera> query = entityManager.createNamedQuery(Tipo_Madera.BUSCAR_TIPO_NOMBRE,
+					Tipo_Madera.class);
+			query.setParameter("nombre", nombre);
+
+			return query.getResultList();
+	
+		
+		
+	}
+	
+	/**
 	 * elimina un tipo de madera
 	 * @param idproducto
 	 * @return
