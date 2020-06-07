@@ -16,4 +16,11 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+
+	<session-config>
+		<cookie-config>
+			<secure>false</secure>
+		</cookie-config>
+	</session-config>
+
 </web-app>

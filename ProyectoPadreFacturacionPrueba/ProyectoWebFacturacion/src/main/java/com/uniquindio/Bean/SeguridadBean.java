@@ -68,7 +68,7 @@ public class SeguridadBean implements Serializable {
 	 * Contrasenia del correo electronico del cual se envian los corres
 	 */
 	private static String password = "analisis1234@";
-
+	
 	/**
 	 * inicia session
 	 */

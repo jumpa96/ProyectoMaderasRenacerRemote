@@ -177,6 +177,7 @@ public class FacturaBean implements Serializable {
 			fact.setFecha(new Date());
 			fact.setValor_total(0);
 			fact.setVendedor(vendedor);
+			fact.setEst("Activa");
 
 			nombre = cliente.getNombre();
 			apellido = cliente.getApellido();
@@ -365,6 +366,7 @@ public class FacturaBean implements Serializable {
 
 		try {
 			factura.setEstado(false);
+			factura.setEst("Anulada");
 			adminEJB.anularFactura(factura);
 			facturas = adminEJB.listarFacturas();
 

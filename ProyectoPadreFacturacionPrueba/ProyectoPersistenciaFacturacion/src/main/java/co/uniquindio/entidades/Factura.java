@@ -44,6 +44,10 @@ public class Factura implements Serializable {
 	@Column(name="estado", nullable=false)
 	private boolean estado;
 	
+	@Column(name="est", nullable=false)
+	private String est;
+	
+	
 	/**
 	 * id de la factura
 	 */
@@ -178,6 +182,18 @@ public class Factura implements Serializable {
 	 */
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+	/**
+	 * @return the est
+	 */
+	public String getEst() {
+		return est;
+	}
+	/**
+	 * @param est the est to set
+	 */
+	public void setEst(String est) {
+		this.est = est;
 	}
 	
 	

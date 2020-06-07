@@ -67,10 +67,6 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 			throw new ObjetoDuplicadoException("Esta cedula ya se encuentra registrada");
 
-		} else if (buscarPersonaPorEmail(cliente.getCorreo())) {
-
-			throw new ObjetoDuplicadoException("Este email ya se encientra registrado");
-
 		}
 		try {
 			
@@ -481,10 +477,6 @@ public class NegocioEJB implements NegocioEJBRemote {
 		if (entityManager.find(Persona.class, proveedor.getCedula()) != null) {
 
 			throw new ObjetoDuplicadoException("Esta cedula ya se encuentra registrada");
-
-		} else if (buscarPersonaPorEmail(proveedor.getCorreo())) {
-
-			throw new ObjetoDuplicadoException("Este email ya se encientra registrado");
 
 		}
 

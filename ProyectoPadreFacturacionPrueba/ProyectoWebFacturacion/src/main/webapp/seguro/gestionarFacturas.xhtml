@@ -55,13 +55,12 @@
 						<h:outputText value="#{factura.id_factura}" />
 					</p:column>
 
-					<p:column filterBy="#{factura.estado}" headerText="Estado: "
+					<p:column filterBy="#{factura.est}" headerText="Estado: "
 						filterMatchMode="contains">
-						<h:outputText value="#{factura.estado}" />
+						<h:outputText value="#{factura.est}" />
 					</p:column>
 
-					<p:column filterBy="#{factura.fecha}" headerText="Fecha: "
-						filterMatchMode="contains">
+					<p:column headerText="Fecha: ">
 						<h:outputText value="#{factura.fecha}">
 							<f:convertDateTime pattern="MM/dd/yyyy" />
 						</h:outputText>

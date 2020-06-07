@@ -7,13 +7,14 @@
 	<meta charset="UTF-8" />
 	<title><ui:insert name="title">MADERAS RENACER</ui:insert></title>
 </h:head>
-<h:body>
+<h:body charset="UTF-8" >
+	<meta charset="UTF-8" />
 	<div align="center">
 		<div>
 			<p:graphicImage value="#{resource['maderasrenacer.jpeg']}" stream="false" />
 		</div>
 		<h:panelGroup rendered="#{!seguridadBean.autenticado}">
-			<ui:insert name="login">
+			<ui:insert name="login" charset="UTF-8">
 				<h:form>
 					<p:panelGrid columns="2">
 						<f:facet name="header">Iniciar sesion</f:facet>
@@ -21,7 +22,7 @@
 						<p:inputText value="#{seguridadBean.usuario.correo}" required="true"
 							requiredMessage="El correo no puede estar vacio" />
 						<p:outputLabel value="Clave" />
-						<p:password value="#{seguridadBean.clave}" />
+						<p:password value="#{seguridadBean.clave}" autocomplete="off"  />
 
 						<f:facet name="footer">
 							<p:commandButton value="Aceptar"
@@ -38,7 +39,7 @@
 			</ui:insert>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{seguridadBean.autenticado}">
-			<ui:insert name="menu">
+			<ui:insert name="menu" charset="UTF-8">
 				<h:form>
 					<p:menubar>
 						<f:facet name="options">
@@ -89,7 +90,7 @@
 					</p:menubar>
 				</h:form>
 			</ui:insert>
-			<ui:insert name="contenido" />
+			<ui:insert name="contenido" charset="UTF-8"/>
 		</h:panelGroup>
 
 	</div>

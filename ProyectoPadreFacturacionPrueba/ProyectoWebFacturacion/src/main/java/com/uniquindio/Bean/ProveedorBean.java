@@ -141,7 +141,8 @@ public class ProveedorBean implements Serializable {
 
 		} catch (ObjetoDuplicadoException e) {
 			
-			Util.mostrarMensaje("Proveedor Repetido", "Proveedor Repetido");
+			Util.mostrarMensaje("La cedula del proveedor ya se encuentra registrada", "La cedula del proveedor ya se encuentra registrada");
+			limpiarCampos();
 			e.printStackTrace();
 			return "/index.xhtml";
 		}	
